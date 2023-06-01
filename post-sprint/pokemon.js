@@ -99,6 +99,65 @@ class Rattata extends NormalType {
   }
 }
 
+class Pokeball {
+    constructor (pokemon) {
+    this.pokemon = {}
+    }
+
+    throw(pokeThrow) {
+    if (pokeThrow !== undefined && Object.keys(this.pokemon).length === 0 &&
+    this.pokemon.constructor === Object) {
+    this.pokemon = pokeThrow
+    console.log(`you caught ${this.pokemon.name}`);
+    } else if (pokeThrow === undefined && Object.keys(this.pokemon).length > 0) {
+        console.log(`GO ${this.pokemon.name}!!`)
+    } else if (pokeThrow === undefined && Object.keys(this.pokemon).length === 0 &&
+    this.pokemon.constructor === Object) {
+        console.log(`This ball is empty`)
+    }
+    return 
+}
+    isEmpty() {
+        if (Object.keys(this.pokemon).length === 0 && this.pokemon.constructor === Object) {
+            return true
+    }
+    return false
+
+}
+contains() {
+    if (Object.keys(this.pokemon).length === 0 && this.pokemon.constructor === Object) {
+       return  'empty...'
+       
+    }
+    return this.pokemon.name
+}
+}
+
+class Trainer {
+ constructor(belt) {
+    const pokeball1 = new Pokeball
+    const pokeball2 = new Pokeball
+    const pokeball3 = new Pokeball
+    const pokeball4 = new Pokeball
+    const pokeball5 = new Pokeball
+    const pokeball6 = new Pokeball
+    
+ this.belt = {pokeball1: pokeball1.pokeball, pokeball2: pokeball2, pokeball3: pokeball3, pokeball4: pokeball4, pokeball5: pokeball5, pokeball6: pokeball6}
+ }
+ catch(pokemon) {
+    for (const pokeballs in this.belt) {
+       if (Object.keys(this.pokemon).length === 0 && this.pokemon.constructor === Object) {
+        this.belt[pokeballs] = this.belt[pokeballs].throw(pokemon)
+        console.log(this.belt[pokeballs])
+        //use pokeball methods aka contains or is empty
+    }
+ }
+ return 'All pokeballs full'
+}
+}
+
+
+
 module.exports = {
   Pokemon,
   FireType,
@@ -109,4 +168,6 @@ module.exports = {
   Squirtle,
   Bulbasaur,
   Rattata,
+  Pokeball,
+  Trainer
 };

@@ -8,6 +8,8 @@ const {
   Squirtle,
   Bulbasaur,
   Rattata,
+  Pokeball,
+  Trainer
 } = require("./pokemon");
 
 describe("pokemon", () => {
@@ -126,5 +128,53 @@ describe("pokemon", () => {
     expect(rattata).toBeInstanceOf(Pokemon);
     expect(rattata.type).toBe("Normal");
     expect(rattata.move).toBe("Tackle");
+  });
+  test('if the pokeball is empty it will capture the passed Pokemon', () => {
+      // arrange 
+     const consoleSpy = jest.spyOn(console, 'log');
+     const newPokeball = new Pokeball
+     const rattata = new Rattata("", 45, 10);
+     newPokeball.throw(rattata)
+     console.log(newPokeball)
+     expect(newPokeball.pokemon).toBe(rattata)
+     newPokeball.throw()
+     expect(consoleSpy).toHaveBeenCalledWith(`GO ${newPokeball.pokemon.name}!!`)
+     const consoleSpy2 = jest.spyOn(console, 'log');
+     const newPokeball2 = new Pokeball
+     newPokeball2.throw()
+     console.log(consoleSpy)
+     expect(consoleSpy2).toHaveBeenCalledWith(`This ball is empty`)
+ });
+ test('Should return a boolean representing whether or not a Pokemon is stored inside it', () => {
+    const charmander = new Charmander("", 30, 15);
+    
+    //arrange 
+     const newPokeball = new Pokeball
+     //act
+    let actual = newPokeball.isEmpty();
+    //assert
+    expect(actual).toBe(true);
+    newPokeball.throw(charmander)
+    //act
+    const newActual = newPokeball.isEmpty();
+    //assert
+    expect(newActual).toBe(false);
+ });
+ test('Should return the name of the Pokemon that is stored or if the pokeball is empty is should return "empty ..."', () => {
+    const newPokeball = new Pokeball
+    const rattata = new Rattata("", 45, 10);
+    // act
+    const actual = newPokeball.contains()
+    expect(actual).toBe('empty...') 
+    newPokeball.throw(rattata)
+    const newActual = newPokeball.contains()
+    expect(newActual).toBe(newPokeball.pokemon.name)
+ });
+  test.only('should use one of its empty Pokeballs throw method to catch the Pokemon', () => {
+    const newTrainer = new Trainer
+    console.log(newTrainer.belt)
+    const rattata = new Rattata("", 45, 10);
+    newTrainer.catch(rattata)
+    console.log(newTrainer.belt)
   });
 });
