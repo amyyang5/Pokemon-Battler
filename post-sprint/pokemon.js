@@ -179,9 +179,13 @@ class Battle {
   }
   fight(pokemon) {
   if(pokemon === this.pokemon1) {
+  this.pokemon2.takeDamage(this.pokemon1.useMove())
+  return
   }
     else if (pokemon === this.pokemon2) {
+      this.pokemon1.takeDamage(this.pokemon2.useMove())
   }
+  return
   }
 }
 

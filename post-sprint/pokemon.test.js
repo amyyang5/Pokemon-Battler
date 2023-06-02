@@ -231,9 +231,25 @@ test('takes name and searches for the pokemon in the belt, uses the pokeballs th
   const charmander = new Charmander
   alex.catch(squirtle)
   ash.catch(charmander)
-  console.log(alex)
+  console.log(alex.belt.pokeball1.pokemon)
   console.log(ash)
-  expect(alex.belt.).toBe()
+  expect(alex.belt.pokeball1.pokemon).toBe(squirtle)
+  expect(ash.belt.pokeball1.pokemon).toBe(charmander)
+ });
+ test('Attack the defending Pokemon (deducting attackers attack damage from the defenders hit points', () => {
+  const alex = new Trainer
+  const ash = new Trainer
+  const squirtle = new Squirtle('', 60, 20)
+  const charmander = new Charmander('', 100, 50)
+  alex.catch(squirtle)
+  ash.catch(charmander)
+  const challenge = new Battle(alex, ash, squirtle, charmander)
+  challenge.fight(charmander)
+  challenge.fight(squirtle)
+  console.log(alex.belt.pokeball1.pokemon)
+  console.log(ash.belt.pokeball1.pokemon)
+  expect(alex.belt.pokeball1.pokemon.hitPoints).toBe(10)
+  expect(ash.belt.pokeball1.pokemon.hitPoints).toBe(80)
  });
 });
 
