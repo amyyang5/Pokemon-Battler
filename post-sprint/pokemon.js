@@ -142,18 +142,47 @@ class Trainer {
     const pokeball5 = new Pokeball
     const pokeball6 = new Pokeball
     
- this.belt = {pokeball1: pokeball1.pokeball, pokeball2: pokeball2, pokeball3: pokeball3, pokeball4: pokeball4, pokeball5: pokeball5, pokeball6: pokeball6}
+ this.belt = {pokeball1: pokeball1, pokeball2: pokeball2, pokeball3: pokeball3, pokeball4: pokeball4, pokeball5: pokeball5, pokeball6: pokeball6}
  }
  catch(pokemon) {
+    console.log(this.belt, 'belt')
     for (const pokeballs in this.belt) {
-       if (Object.keys(this.pokemon).length === 0 && this.pokemon.constructor === Object) {
-        this.belt[pokeballs] = this.belt[pokeballs].throw(pokemon)
-        console.log(this.belt[pokeballs])
+      console.log(this.belt[pokeballs].pokemon, 'empty')
+      console.log(this.belt[pokeballs].isEmpty())
+       if (this.belt[pokeballs].isEmpty()) {
+        this.belt[pokeballs].throw(pokemon)
+        return
+       // this.belt[pokeballs] = this.belt[pokeballs].throw(pokemon)
+       // console.log(this.belt[pokeballs])
         //use pokeball methods aka contains or is empty
     }
  }
  return 'All pokeballs full'
 }
+getPokemon(pokemonName) {
+  for (const pokeballs in this.belt) {
+    console.log(pokeballs)
+    console.log(this.belt[pokeballs].pokemon.name)
+    if (this.belt[pokeballs].pokemon.name === pokemonName) {
+      return this.belt[pokeballs].throw()
+    }
+  }
+}
+}
+
+class Battle {
+  constructor(trainer1, trainer2, pokemon1, pokemon2) {
+    this.trainer1 = trainer1;
+    this.trainer2 = trainer2;
+    this.pokemon1 = pokemon1;
+    this.pokemon2 = pokemon2
+  }
+  fight(pokemon) {
+  if(pokemon === this.pokemon1) {
+  }
+    else if (pokemon === this.pokemon2) {
+  }
+  }
 }
 
 
@@ -169,5 +198,6 @@ module.exports = {
   Bulbasaur,
   Rattata,
   Pokeball,
-  Trainer
+  Trainer,
+  Battle
 };

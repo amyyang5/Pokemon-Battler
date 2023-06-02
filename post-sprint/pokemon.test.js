@@ -9,7 +9,8 @@ const {
   Bulbasaur,
   Rattata,
   Pokeball,
-  Trainer
+  Trainer,
+  Battle
 } = require("./pokemon");
 
 describe("pokemon", () => {
@@ -170,11 +171,69 @@ describe("pokemon", () => {
     const newActual = newPokeball.contains()
     expect(newActual).toBe(newPokeball.pokemon.name)
  });
-  test.only('should use one of its empty Pokeballs throw method to catch the Pokemon', () => {
+  test('should use one of its empty Pokeballs throw method to catch the Pokemon', () => {
     const newTrainer = new Trainer
     console.log(newTrainer.belt)
+    const pokeball1 = new Pokeball
+    const pokeball2 = new Pokeball
+    const pokeball3 = new Pokeball
+    const pokeball4 = new Pokeball
+    const pokeball5 = new Pokeball
+    const pokeball6 = new Pokeball
+    
+    const emptyPokeball = ({
+      pokeball1: pokeball1,
+      pokeball2: pokeball2,
+      pokeball3: pokeball3,
+      pokeball4: pokeball4,
+      pokeball5: pokeball5,
+      pokeball6: pokeball6
+  })
+    expect(newTrainer.belt).toEqual(emptyPokeball);
+  const rattata = new Rattata("", 45, 10);
+  newTrainer.catch(rattata)
+  const emptyPokeball2 = ({
+    pokeball1: rattata,
+    pokeball2: pokeball2,
+    pokeball3: pokeball3,
+    pokeball4: pokeball4,
+    pokeball5: pokeball5,
+    pokeball6: pokeball6
+  })
+  console.log(emptyPokeball2)
+  console.log(newTrainer.belt)
+  expect(newTrainer.belt[pokeball1]).toEqual(emptyPokeball2[pokeball1])
+});
+test('returns All pokeballs full when belt is full', () => {
+  const newTrainer = new Trainer
     const rattata = new Rattata("", 45, 10);
     newTrainer.catch(rattata)
-    console.log(newTrainer.belt)
-  });
+    newTrainer.catch(rattata)
+    newTrainer.catch(rattata)
+    newTrainer.catch(rattata)
+    newTrainer.catch(rattata)
+    newTrainer.catch(rattata)
+   
+  expect(newTrainer.catch(rattata)).toBe('All pokeballs full')  
 });
+test('takes name and searches for the pokemon in the belt, uses the pokeballs throw and returns the wanted pokemon', () => {
+  const consoleSpy = jest.spyOn(console, 'log');
+  const newTrainer = new Trainer
+  const rattata = new Rattata("", 45, 10);
+  newTrainer.catch(rattata)
+  newTrainer.getPokemon('Rattata')
+  expect(consoleSpy).toHaveBeenCalledWith(`GO Rattata!!`)
+});
+ test('testing battle features', () => {
+  const alex = new Trainer
+  const ash = new Trainer
+  const squirtle = new Squirtle
+  const charmander = new Charmander
+  alex.catch(squirtle)
+  ash.catch(charmander)
+  console.log(alex)
+  console.log(ash)
+  expect(alex.belt.).toBe()
+ });
+});
+
