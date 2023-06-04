@@ -10,7 +10,7 @@ const {
   Rattata,
   Pokeball,
   Trainer,
-  Battle
+  Battle,
 } = require("./pokemon");
 
 describe("pokemon", () => {
@@ -130,126 +130,142 @@ describe("pokemon", () => {
     expect(rattata.type).toBe("Normal");
     expect(rattata.move).toBe("Tackle");
   });
-  test('if the pokeball is empty it will capture the passed Pokemon', () => {
-      // arrange 
-     const consoleSpy = jest.spyOn(console, 'log');
-     const newPokeball = new Pokeball
-     const rattata = new Rattata("", 45, 10);
-     newPokeball.throw(rattata)
-     console.log(newPokeball)
-     expect(newPokeball.pokemon).toBe(rattata)
-     newPokeball.throw()
-     expect(consoleSpy).toHaveBeenCalledWith(`GO ${newPokeball.pokemon.name}!!`)
-     const consoleSpy2 = jest.spyOn(console, 'log');
-     const newPokeball2 = new Pokeball
-     newPokeball2.throw()
-     console.log(consoleSpy)
-     expect(consoleSpy2).toHaveBeenCalledWith(`This ball is empty`)
- });
- test('Should return a boolean representing whether or not a Pokemon is stored inside it', () => {
+  test("if the pokeball is empty it will capture the passed Pokemon", () => {
+    // arrange
+    const consoleSpy = jest.spyOn(console, "log");
+    const newPokeball = new Pokeball();
+    const rattata = new Rattata("", 45, 10);
+    newPokeball.throw(rattata);
+    expect(newPokeball.pokemon).toBe(rattata);
+    newPokeball.throw();
+    expect(consoleSpy).toHaveBeenCalledWith(`GO ${newPokeball.pokemon.name}!!`);
+    const consoleSpy2 = jest.spyOn(console, "log");
+    const newPokeball2 = new Pokeball();
+    newPokeball2.throw();
+    expect(consoleSpy2).toHaveBeenCalledWith(`This ball is empty`);
+  });
+  test("Should return a boolean representing whether or not a Pokemon is stored inside it", () => {
     const charmander = new Charmander("", 30, 15);
-    
-    //arrange 
-     const newPokeball = new Pokeball
-     //act
+
+    //arrange
+    const newPokeball = new Pokeball();
+    //act
     let actual = newPokeball.isEmpty();
     //assert
     expect(actual).toBe(true);
-    newPokeball.throw(charmander)
+    newPokeball.throw(charmander);
     //act
     const newActual = newPokeball.isEmpty();
     //assert
     expect(newActual).toBe(false);
- });
- test('Should return the name of the Pokemon that is stored or if the pokeball is empty is should return "empty ..."', () => {
-    const newPokeball = new Pokeball
+  });
+  test('Should return the name of the Pokemon that is stored or if the pokeball is empty is should return "empty ..."', () => {
+    const newPokeball = new Pokeball();
     const rattata = new Rattata("", 45, 10);
     // act
-    const actual = newPokeball.contains()
-    expect(actual).toBe('empty...') 
-    newPokeball.throw(rattata)
-    const newActual = newPokeball.contains()
-    expect(newActual).toBe(newPokeball.pokemon.name)
- });
-  test('should use one of its empty Pokeballs throw method to catch the Pokemon', () => {
-    const newTrainer = new Trainer
-    console.log(newTrainer.belt)
-    const pokeball1 = new Pokeball
-    const pokeball2 = new Pokeball
-    const pokeball3 = new Pokeball
-    const pokeball4 = new Pokeball
-    const pokeball5 = new Pokeball
-    const pokeball6 = new Pokeball
-    
-    const emptyPokeball = ({
+    const actual = newPokeball.contains();
+    expect(actual).toBe("empty...");
+    newPokeball.throw(rattata);
+    const newActual = newPokeball.contains();
+    expect(newActual).toBe(newPokeball.pokemon.name);
+  });
+  test("should use one of its empty Pokeballs throw method to catch the Pokemon", () => {
+    const newTrainer = new Trainer();
+    console.log(newTrainer.belt);
+    const pokeball1 = new Pokeball();
+    const pokeball2 = new Pokeball();
+    const pokeball3 = new Pokeball();
+    const pokeball4 = new Pokeball();
+    const pokeball5 = new Pokeball();
+    const pokeball6 = new Pokeball();
+
+    const emptyPokeball = {
       pokeball1: pokeball1,
       pokeball2: pokeball2,
       pokeball3: pokeball3,
       pokeball4: pokeball4,
       pokeball5: pokeball5,
-      pokeball6: pokeball6
-  })
+      pokeball6: pokeball6,
+    };
     expect(newTrainer.belt).toEqual(emptyPokeball);
-  const rattata = new Rattata("", 45, 10);
-  newTrainer.catch(rattata)
-  const emptyPokeball2 = ({
-    pokeball1: rattata,
-    pokeball2: pokeball2,
-    pokeball3: pokeball3,
-    pokeball4: pokeball4,
-    pokeball5: pokeball5,
-    pokeball6: pokeball6
-  })
-  console.log(emptyPokeball2)
-  console.log(newTrainer.belt)
-  expect(newTrainer.belt[pokeball1]).toEqual(emptyPokeball2[pokeball1])
-});
-test('returns All pokeballs full when belt is full', () => {
-  const newTrainer = new Trainer
     const rattata = new Rattata("", 45, 10);
-    newTrainer.catch(rattata)
-    newTrainer.catch(rattata)
-    newTrainer.catch(rattata)
-    newTrainer.catch(rattata)
-    newTrainer.catch(rattata)
-    newTrainer.catch(rattata)
-   
-  expect(newTrainer.catch(rattata)).toBe('All pokeballs full')  
-});
-test('takes name and searches for the pokemon in the belt, uses the pokeballs throw and returns the wanted pokemon', () => {
-  const consoleSpy = jest.spyOn(console, 'log');
-  const newTrainer = new Trainer
-  const rattata = new Rattata("", 45, 10);
-  newTrainer.catch(rattata)
-  newTrainer.getPokemon('Rattata')
-  expect(consoleSpy).toHaveBeenCalledWith(`GO Rattata!!`)
-});
- test('testing battle features', () => {
-  const alex = new Trainer
-  const ash = new Trainer
-  const squirtle = new Squirtle
-  const charmander = new Charmander
-  alex.catch(squirtle)
-  ash.catch(charmander)
-  console.log(alex.belt.pokeball1.pokemon)
-  console.log(ash)
-  expect(alex.belt.pokeball1.pokemon).toBe(squirtle)
-  expect(ash.belt.pokeball1.pokemon).toBe(charmander)
- });
- test('Attack the defending Pokemon (deducting attackers attack damage from the defenders hit points', () => {
-  const alex = new Trainer
-  const ash = new Trainer
-  const squirtle = new Squirtle('', 60, 20)
-  const charmander = new Charmander('', 100, 50)
-  alex.catch(squirtle)
-  ash.catch(charmander)
-  const challenge = new Battle(alex, ash, squirtle, charmander)
-  challenge.fight(charmander)
-  challenge.fight(squirtle)
-  console.log(alex.belt.pokeball1.pokemon)
-  console.log(ash.belt.pokeball1.pokemon)
-  expect(alex.belt.pokeball1.pokemon.hitPoints).toBe(10)
-  expect(ash.belt.pokeball1.pokemon.hitPoints).toBe(80)
- });
-});
+    newTrainer.catch(rattata);
+    const emptyPokeball2 = {
+      pokeball1: rattata,
+      pokeball2: pokeball2,
+      pokeball3: pokeball3,
+      pokeball4: pokeball4,
+      pokeball5: pokeball5,
+      pokeball6: pokeball6,
+    };
+    expect(newTrainer.belt[pokeball1]).toEqual(emptyPokeball2[pokeball1]);
+  });
+  test("returns All pokeballs full when belt is full", () => {
+    const newTrainer = new Trainer();
+    const rattata = new Rattata("", 45, 10);
+    newTrainer.catch(rattata);
+    newTrainer.catch(rattata);
+    newTrainer.catch(rattata);
+    newTrainer.catch(rattata);
+    newTrainer.catch(rattata);
+    newTrainer.catch(rattata);
 
+    expect(newTrainer.catch(rattata)).toBe("All pokeballs full");
+  });
+  test("takes name and searches for the pokemon in the belt, uses the pokeballs throw and returns the wanted pokemon", () => {
+    const consoleSpy = jest.spyOn(console, "log");
+    const newTrainer = new Trainer();
+    const rattata = new Rattata("", 45, 10);
+    newTrainer.catch(rattata);
+    newTrainer.getPokemon("Rattata");
+    expect(consoleSpy).toHaveBeenCalledWith(`GO Rattata!!`);
+  });
+  test("testing battle features", () => {
+    const alex = new Trainer();
+    const ash = new Trainer();
+    const squirtle = new Squirtle();
+    const charmander = new Charmander();
+    alex.catch(squirtle);
+    ash.catch(charmander);
+    expect(alex.belt.pokeball1.pokemon).toBe(squirtle);
+    expect(ash.belt.pokeball1.pokemon).toBe(charmander);
+  });
+  test("Attack the defending Pokemon (deducting attackers attack damage from the defenders hit points", () => {
+    const alex = new Trainer();
+    const ash = new Trainer();
+    const squirtle = new Squirtle("", 60, 20);
+    const charmander = new Charmander("", 100, 40);
+    alex.catch(squirtle);
+    ash.catch(charmander);
+    //console.log(ash.belt.pokeball1[pokemon]);
+    const challenge = new Battle(alex, ash, squirtle, charmander);
+    challenge.fight(charmander);
+    challenge.fight(squirtle);
+
+    expect(alex.belt.pokeball1.pokemon.hitPoints).toBe(30);
+    expect(ash.belt.pokeball1.pokemon.hitPoints).toBe(75);
+  });
+  test("Attack the defending Pokemon (deducting attackers attack damage from the defenders hit points", () => {
+    const consoleSpy = jest.spyOn(console, "log");
+    const alex = new Trainer();
+    const ash = new Trainer();
+    const squirtle = new Squirtle("", 60, 20);
+    const charmander = new Charmander("", 100, 40);
+    alex.catch(squirtle);
+    ash.catch(charmander);
+
+    const challenge = new Battle(alex, ash, squirtle, charmander);
+    challenge.fight(charmander);
+    expect(consoleSpy).toHaveBeenCalledWith(`It's not very effective`);
+
+    const consoleSpy2 = jest.spyOn(console, "log");
+    challenge.fight(squirtle);
+    expect(consoleSpy2).toHaveBeenCalledWith(`It's super effective`);
+
+    const consoleSpy3 = jest.spyOn(console, "log");
+    challenge.fight(charmander);
+    expect(consoleSpy3).toHaveBeenCalledWith(
+      `Squirtle has fainted, Charmander is the winner`
+    );
+  });
+});
